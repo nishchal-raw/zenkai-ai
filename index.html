@@ -23,7 +23,8 @@ body::before{
     position:absolute;
     width:120%;
     height:120%;
-    background:url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
+    background:url('https://i.ibb.co/7QpKsCX/dragon.png') center/cover no-repeat;
+    opacity:0.25;
     filter:brightness(0.35) blur(2px);
     animation:dragonMove 20s infinite alternate ease-in-out;
     z-index:-2;
@@ -44,16 +45,26 @@ body::after{
 
 /* Dragon movement */
 @keyframes dragonMove{
+
     0%{
-        transform:scale(1) translateX(0px);
+        transform:
+        scale(1)
+        translateX(-40px)
+        translateY(0px);
     }
 
     50%{
-        transform:scale(1.05) translateX(-20px);
+        transform:
+        scale(1.05)
+        translateX(40px)
+        translateY(-20px);
     }
 
     100%{
-        transform:scale(1.1) translateX(20px);
+        transform:
+        scale(1.1)
+        translateX(-20px)
+        translateY(20px);
     }
 }
     .chat-container{
@@ -123,16 +134,41 @@ button{
     cursor:pointer;
     box-shadow:0 0 15px #ff00ff;
 }
+    .ai-orb{
+    width:80px;
+    height:80px;
+    margin:0 auto 10px;
+    border-radius:50%;
+    background:radial-gradient(circle,#ff00ff,#6a00ff,#000);
+    box-shadow:
+    0 0 20px #ff00ff,
+    0 0 60px #6a00ff;
+    animation:floatOrb 3s infinite ease-in-out;
+}
+
+@keyframes floatOrb{
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+}
 </style>
 
 </head>
 
 <body>
 
-<div class="chatbox">
+<div class="chat-container">
 
 <div class="header">
-   
+    <div class="ai-orb"></div>
 👾 Zenkai AI
 </div>
 
