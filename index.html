@@ -156,7 +156,8 @@ let aiMessage = document.createElement("div");
 aiMessage.className = "message";
 
   getAIResponse(text).then(reply => {
-aiMessage.innerText = reply;
+getAIResponse(text).then(reply => {
+aiMessage.innerText = "🤖 " + reply;
 });
 
 messages.appendChild(aiMessage);
