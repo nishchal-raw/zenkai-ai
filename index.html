@@ -155,17 +155,15 @@ let aiMessage = document.createElement("div");
 
 aiMessage.className = "message";
 
-  getAIResponse(text).then(reply => {
-getAIResponse(text).then(reply => {
-aiMessage.innerText = "🤖 " + reply;
-});
+aiMessage.innerText = "🤖 Thinking...";
 
 messages.appendChild(aiMessage);
 
-aiMessage.innerText =
-"👾 I received your message: " + text;
+getAIResponse(text).then(reply => {
 
-},1000);
+aiMessage.innerText = "🤖 " + reply;
+
+});
 
 input.value="";
 
