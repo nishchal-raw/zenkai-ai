@@ -186,16 +186,27 @@ event.results[0][0].transcript;
 sendMessage();
 
 }
-async function getAIResponse(userText){
+ async function getAIResponse(userText){
 
-let response = await fetch("https://api.affiliateplus.xyz/api/chatbot?message=" + userText + "&botname=ZenkaiAI&ownername=Nishchal");
+try{
+
+let response = await fetch(
+"https://api.affiliateplus.xyz/api/chatbot?message="
++ userText +
+"&botname=ZenkaiAI&ownername=Nischal"
+);
 
 let data = await response.json();
 
 return data.message;
 
+}catch(error){
+
+return "⚠️ AI server error";
+
 }
-}
+
+ }
 </script>
 
 </body>
