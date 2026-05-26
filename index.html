@@ -317,11 +317,26 @@ let aiMessage = document.createElement("div");
 aiMessage.className = "message";
 
 aiMessage.innerText = "🤖 Thinking...";
+/* Typing animation */
 
+let dots = 0;
+
+let thinking = setInterval(()=>{
+
+dots++;
+
+if(dots > 3){
+dots = 0;
+}
+
+aiMessage.innerText =
+"🤖 Thinking" + ".".repeat(dots);
+
+},500);
 messages.appendChild(aiMessage);
 
 getAIResponse(text).then(reply => {
-
+clearInterval(thinking);
 aiMessage.innerText = reply;
 
 });
