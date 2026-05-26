@@ -388,7 +388,9 @@ Ask me anything...
 </div>
 
 <script>
+let allChats = JSON.parse(localStorage.getItem("zenkaiChats")) || [];
 
+let currentChat = [];
 function sendMessage(){
 
 let input = document.getElementById("input");
@@ -404,7 +406,10 @@ let userMessage = document.createElement("div");
 userMessage.className = "message user";
 
 userMessage.innerText = text;
-
+currentChat.push({
+sender:"user",
+text:text
+});
 messages.appendChild(userMessage);
 
 let aiMessage = document.createElement("div");
@@ -412,6 +417,12 @@ let aiMessage = document.createElement("div");
 aiMessage.className = "message";
 
 aiMessage.innerText = "🤖 Thinking...";
+  currentChat.push({
+sender:"ai",
+text:reply
+});
+
+saveChat();
 /* Typing animation */
 
 let dots = 0;
@@ -544,6 +555,78 @@ document.body.style.background =
 "linear-gradient(135deg,#000,#240046,#ff00ff)";
 
   }
+  function saveChat(){
+
+if(currentChat.length > 0){
+
+allChats.push([...currentChat]);
+
+localStorage.setItem(
+"zenkaiChats",
+JSON.stringify(allChats)
+);
+
+loadSidebarChats();
+
+}
+
+  }
+  function loadSidebarChats(){
+
+let sidebar =
+document.getElementById("sidebar");
+
+let old =
+document.querySelectorAll(".old-chat");
+
+old.forEach(chat => chat.remove());
+
+allChats.forEach((chat,index)=>{
+
+let btn =
+document.createElement("button");
+
+btn.className = "old-chat";
+
+btn.innerText =
+"💬 Chat " + (index + 1);
+
+btn.onclick = function(){
+
+loadChat(index);
+
+};
+
+sidebar.appendChild(btn);
+
+});
+
+  }
+  function loadChat(index){
+
+let messages =
+document.getElementById("messages");
+
+messages.innerHTML = "";
+
+allChats[index].forEach(msg=>{
+
+let div =
+document.createElement("div");
+
+div.className =
+msg.sender === "user"
+? "message user"
+: "message";
+
+div.innerText = msg.text;
+
+messages.appendChild(div);
+
+});
+
+  }
+  loadSidebarChats();
 </script>
 
 </body>
