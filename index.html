@@ -387,13 +387,19 @@ recognition.start();
 
 recognition.onresult = function(event){
 
-document.getElementById("input").value =
-event.results[0][0].transcript;
+
+document.getElementById("input")
+.addEventListener("keydown", function(event){
+
+if(event.keyCode == 13){
+
+event.preventDefault();
 
 sendMessage();
 
 }
 
+});
 }
 
 </script>
