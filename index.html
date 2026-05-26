@@ -5,8 +5,28 @@
 <title>Zenkai AI</title>
 
 <style>
+.avatar{
+width:80px;
+height:80px;
+border-radius:50%;
+display:block;
+margin:auto;
+margin-bottom:10px;
+box-shadow:0 0 30px #ff00ff;
+animation: glow 2s infinite alternate;
+}
 
+@keyframes glow{
+from{
+box-shadow:0 0 10px #ff00ff;
+}
+to{
+box-shadow:0 0 40px #00ffff;
+}
+}
 body{
+  background:
+radial-gradient(circle at top,#1a001f,#000000);
 margin:0;
 background:black;
 font-family:Arial;
