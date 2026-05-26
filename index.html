@@ -188,22 +188,30 @@ sendMessage();
 }
  async function getAIResponse(userText){
 
-try{
+userText = userText.toLowerCase();
 
-let response = await fetch(
-"https://api.affiliateplus.xyz/api/chatbot?message="
-+ userText +
-"&botname=ZenkaiAI&ownername=Nischal"
-);
+if(userText.includes("hello")){
+return "👋 Hello! I am Zenkai AI.";
+}
 
-let data = await response.json();
+else if(userText.includes("your name")){
+return "🤖 My name is Zenkai AI.";
+}
 
-return data.message;
+else if(userText.includes("who made you")){
+return "⚡ I was created by Nischal Sharma.";
+}
 
-}catch(error){
+else if(userText.includes("how are you")){
+return "😎 I am futuristic and fully operational!";
+}
 
-return "⚠️ AI server error";
+else if(userText.includes("bye")){
+return "👋 Goodbye Commander!";
+}
 
+else{
+return "⚡ Zenkai AI is learning new responses...";
 }
 
  }
