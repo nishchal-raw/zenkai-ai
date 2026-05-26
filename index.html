@@ -272,6 +272,8 @@ left:-260px;
 width:250px;
 height:100%;
 
+  overflow-y:auto;
+  
 background:rgba(10,10,20,0.95);
 
 padding:20px;
@@ -312,7 +314,16 @@ color:white;
 font-size:16px;
 
 }
-
+.old-chat{
+width:100%;
+margin-top:10px;
+padding:10px;
+background:#1e1e1e;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+}
 /* MENU BUTTON */
 
 .menu-btn{
@@ -417,12 +428,7 @@ let aiMessage = document.createElement("div");
 aiMessage.className = "message";
 
 aiMessage.innerText = "🤖 Thinking...";
-  currentChat.push({
-sender:"ai",
-text:reply
-});
-
-saveChat();
+  
 /* Typing animation */
 
 let dots = 0;
@@ -444,7 +450,12 @@ messages.appendChild(aiMessage);
 getAIResponse(text).then(reply => {
 clearInterval(thinking);
 aiMessage.innerText = reply;
+currentChat.push({
+sender:"ai",
+text:reply
+});
 
+saveChat();
 });
 
 input.value="";
@@ -535,7 +546,7 @@ function newChat(){
 
 document.getElementById("messages")
 .innerHTML = "";
-
+currentChat = [];
 }
 
 /* CLEAR CHAT */
@@ -546,7 +557,7 @@ document.getElementById("messages")
 .innerHTML = "";
 
 }
-
+  
 /* THEME */
 
 function toggleTheme(){
