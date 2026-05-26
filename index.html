@@ -87,14 +87,16 @@ border-radius:10px;
 <div class="chatbox">
 
 <div class="header">
+  <img src="https://i.imgur.com/8Km9tLL.png" class="avatar">
 👾 Zenkai AI
 </div>
 
 <div class="messages" id="messages">
 
 <div class="message">
-Hello Nishchal 👋
-I am your futuristic AI assistant.
+⚡ Zenkai AI Online
+
+Ask me anything...
 </div>
 
 </div>
@@ -108,15 +110,7 @@ I am your futuristic AI assistant.
 </div>
 
 </div>
-async function getAIResponse(userText){
 
-let response = await fetch("https://api.affiliateplus.xyz/api/chatbot?message=" + userText + "&botname=ZenkaiAI&ownername=Nishchal");
-
-let data = await response.json();
-
-return data.message;
-
-}
 <script>
 
 function sendMessage(){
@@ -175,7 +169,15 @@ event.results[0][0].transcript;
 sendMessage();
 
 }
+async function getAIResponse(userText){
 
+let response = await fetch("https://api.affiliateplus.xyz/api/chatbot?message=" + userText + "&botname=ZenkaiAI&ownername=Nishchal");
+
+let data = await response.json();
+
+return data.message;
+
+}
 }
 </script>
 
