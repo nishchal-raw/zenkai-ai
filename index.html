@@ -6,6 +6,21 @@
 
 <style>
 body{
+  <div class="sidebar" id="sidebar">
+
+<h2>Zenkai AI</h2>
+
+<button onclick="newChat()">➕ New Chat</button>
+
+<button onclick="clearChat()">🗑 Clear Chat</button>
+
+<button onclick="toggleTheme()">🌙 Theme</button>
+
+</div>
+
+<button class="menu-btn" onclick="openSidebar()">
+☰
+</button>
     margin:0;
     height:100vh;
     display:flex;
@@ -259,6 +274,129 @@ button{
         transform:translateY(0px);
     }
 }
+    /* ===== SIDEBAR ===== */
+
+.sidebar{
+
+position:fixed;
+left:-250px;
+top:0;
+
+width:250px;
+height:100%;
+
+background:rgba(10,10,20,0.95);
+
+backdrop-filter:blur(20px);
+
+padding:20px;
+
+transition:0.4s;
+
+z-index:999;
+
+box-shadow:
+0 0 30px rgba(255,0,255,0.5);
+
+}
+
+.sidebar h2{
+
+color:white;
+margin-bottom:30px;
+
+}
+
+.sidebar button{
+
+width:100%;
+padding:15px;
+
+margin-top:15px;
+
+border:none;
+border-radius:15px;
+
+background:#ff00ff;
+color:white;
+
+font-size:16px;
+
+cursor:pointer;
+
+}
+
+/* MENU BUTTON */
+
+.menu-btn{
+
+position:fixed;
+
+top:20px;
+left:20px;
+
+z-index:1000;
+
+background:#ff00ff;
+color:white;
+
+border:none;
+
+padding:12px 16px;
+
+border-radius:12px;
+
+font-size:20px;
+
+box-shadow:
+0 0 20px #ff00ff;
+
+}
+    /* OPEN SIDEBAR */
+
+function openSidebar(){
+
+let sidebar =
+document.getElementById("sidebar");
+
+if(sidebar.style.left == "0px"){
+
+sidebar.style.left = "-250px";
+
+}else{
+
+sidebar.style.left = "0px";
+
+}
+
+}
+
+/* NEW CHAT */
+
+function newChat(){
+
+document.getElementById("messages")
+.innerHTML = "";
+
+}
+
+/* CLEAR CHAT */
+
+function clearChat(){
+
+document.getElementById("messages")
+.innerHTML = "";
+
+}
+
+/* THEME CHANGE */
+
+function toggleTheme(){
+
+document.body.style.background =
+"linear-gradient(135deg,#000,#240046,#ff00ff)";
+
+}
 </style>
 
 </head>
@@ -388,7 +526,7 @@ recognition.start();
 recognition.onresult = function(event){
 
 
-
+}
 }
 /* ENTER KEY SEND */
 
