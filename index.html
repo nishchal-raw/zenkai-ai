@@ -103,6 +103,7 @@ rotate 8s linear infinite;
 }
 
 .chatbox{
+  border:1px solid rgba(255,255,255,0.15);
 transform-style:preserve-3d;
 transition:0.4s;
 }
@@ -182,6 +183,81 @@ transition:0.3s;
 button:hover{
 transform:scale(1.1);
 background:#ff00ff;
+}
+  .ai-orb{
+width:80px;
+height:80px;
+margin:auto;
+margin-bottom:15px;
+border-radius:50%;
+background:
+radial-gradient(circle,
+#00ffff,
+#ff00ff,
+#6a00ff);
+
+box-shadow:
+0 0 30px #00ffff,
+0 0 60px #ff00ff,
+0 0 90px #6a00ff;
+
+animation:
+pulse 2s infinite alternate,
+spin 8s linear infinite;
+}
+
+@keyframes pulse{
+from{
+transform:scale(1);
+}
+to{
+transform:scale(1.15);
+}
+}
+
+@keyframes spin{
+from{
+filter:hue-rotate(0deg);
+}
+to{
+filter:hue-rotate(360deg);
+}
+}
+
+.message{
+animation:fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0px);
+}
+}
+
+body::after{
+content:'';
+position:absolute;
+width:100%;
+height:100%;
+background-image:
+radial-gradient(#ffffff22 1px, transparent 1px);
+background-size:40px 40px;
+opacity:0.2;
+animation:bgMove 20s linear infinite;
+}
+
+@keyframes bgMove{
+from{
+transform:translateY(0px);
+}
+to{
+transform:translateY(100px);
+}
 }
 </style>
 
