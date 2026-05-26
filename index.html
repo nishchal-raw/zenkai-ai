@@ -161,7 +161,7 @@ messages.appendChild(aiMessage);
 
 getAIResponse(text).then(reply => {
 
-aiMessage.innerText = "🤖 " + reply;
+aiMessage.innerText = reply;
 
 });
 
@@ -170,24 +170,8 @@ input.value="";
 messages.scrollTop = messages.scrollHeight;
 
 }
-function startVoice(){
 
-let recognition = new webkitSpeechRecognition();
-
-recognition.lang = "en-US";
-
-recognition.start();
-
-recognition.onresult = function(event){
-
-document.getElementById("input").value =
-event.results[0][0].transcript;
-
-sendMessage();
-
-}
-}
- async function getAIResponse(userText){
+async function getAIResponse(userText){
 
 userText = userText.toLowerCase();
 
@@ -215,7 +199,27 @@ else{
 return "⚡ Zenkai AI is learning new responses...";
 }
 
- }
+}
+
+function startVoice(){
+
+let recognition = new webkitSpeechRecognition();
+
+recognition.lang = "en-US";
+
+recognition.start();
+
+recognition.onresult = function(event){
+
+document.getElementById("input").value =
+event.results[0][0].transcript;
+
+sendMessage();
+
+}
+
+}
+
 </script>
 
 </body>
