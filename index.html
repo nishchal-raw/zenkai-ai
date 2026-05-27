@@ -647,14 +647,18 @@ currentChat = [];
 }
 
 /* SAVE CHAT */
+
 function saveChat(){
 
 if(currentChat.length === 0) return;
 
-/* overwrite latest chat */
+/* agar first time hai */
+if(allChats.length === 0){
+allChats.push([...currentChat]);
+}
 
-allChats[allChats.length - 1] =
-[...currentChat];
+/* latest chat update karo */
+allChats[allChats.length - 1] = [...currentChat];
 
 localStorage.setItem(
 "zenkaiChats",
@@ -664,6 +668,7 @@ JSON.stringify(allChats)
 loadSidebarChats();
 
 }
+
 
 
 /* THEME */
@@ -710,7 +715,7 @@ loadSidebarChats();
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+  import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDIN5KnisDqOwWgOiaPSEmvXzeP5q5Dbqk",
@@ -730,7 +735,7 @@ loadSidebarChats();
 
   window.googleLogin = function () {
 
-    signInWithPopup(auth, provider)
+    signInWithRedirect(auth, provider)
 
       .then((result) => {
 
