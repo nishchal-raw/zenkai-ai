@@ -411,76 +411,65 @@ Ask me anything...
 </div>
 
 </div>
-
 <script>
-let allChats = JSON.parse(localStorage.getItem("zenkaiChats")) || [];
 
+let allChats = JSON.parse(localStorage.getItem("zenkaiChats")) || [];
 let currentChat = [];
+
+/* SEND MESSAGE */
+
 function sendMessage(){
 
 let input = document.getElementById("input");
+let text = input.value.trim();
 
-let text = input.value;
-
-if(text==="") return;
+if(text === "") return;
 
 let messages = document.getElementById("messages");
 
+/* USER MESSAGE */
+
 let userMessage = document.createElement("div");
-
 userMessage.className = "message user";
-
 userMessage.innerText = text;
+
+messages.appendChild(userMessage);
+
 currentChat.push({
 sender:"user",
 text:text
 });
-messages.appendChild(userMessage);
+
+/* AI MESSAGE */
 
 let aiMessage = document.createElement("div");
-
 aiMessage.className = "message";
-
 aiMessage.innerText = "🤖 Thinking...";
-  
-/* Typing animation */
 
-let dots = 0;
-
-let thinking = setInterval(()=>{
-
-dots++;
-
-if(dots > 3){
-dots = 0;
-}
-
-aiMessage.innerText =
-"🤖 Thinking" + ".".repeat(dots);
-
-},500);
 messages.appendChild(aiMessage);
 
-let reply = getAIResponse(text);
+setTimeout(()=>{
 
-clearInterval(thinking);
-
-aiMessage.innerText = reply;
+aiMessage.innerText = getAIResponse(text);
 
 currentChat.push({
 sender:"ai",
-text:reply
+text:aiMessage.innerText
 });
 
 saveChat();
 
-input.value="";
+},800);
+
+input.value = "";
 
 messages.scrollTop = messages.scrollHeight;
 
 }
 
-async function getAIResponse(userText){
+/* AI RESPONSE */
+
+function getAIResponse(userText){
 
 userText = userText.toLowerCase();
 
@@ -492,10 +481,6 @@ else if(userText.includes("your name")){
 return "🤖 My name is Zenkai AI.";
 }
 
-  else if(userText.includes("how was harshita ")){
-return ' she was an girl live in ajmer rajasthan india 
-  there brother was famous and he give them nick name which is dingi bai !';
-  }
 else if(userText.includes("who made you")){
 return "⚡ I was created by Nischal Sharma.";
 }
@@ -514,15 +499,30 @@ return "⚡ Zenkai AI is learning new responses...";
 
 }
 
+/* ENTER KEY */
+
+document.getElementById("input")
+.addEventListener("keydown",function(event){
+
+if(event.key === "Enter"){
+event.preventDefault();
+sendMessage();
+}
+
+});
+
+/* MIC */
+
 function startVoice(){
+
 if(!window.SpeechRecognition &&
 !window.webkitSpeechRecognition){
 
 alert("Voice not supported");
-
 return;
 
 }
+
 let recognition =
 new(window.SpeechRecognition ||
 window.webkitSpeechRecognition)();
@@ -530,11 +530,7 @@ window.webkitSpeechRecognition)();
 recognition.lang = "en-US";
 
 recognition.start();
-recognition.onerror = function(){
 
-alert("Mic permission denied");
-
-};
 recognition.onresult = function(event){
 
 let transcript =
@@ -544,30 +540,25 @@ document.getElementById("input").value =
 transcript;
 
 sendMessage();
+
 };
-}
-/* ENTER KEY SEND */
 
-document.getElementById("input")
-.addEventListener("keydown", function(event){
+recognition.onerror = function(){
 
-if(event.key === "Enter"){
+alert("Mic permission denied");
 
-event.preventDefault();
-
-sendMessage();
+};
 
 }
 
-});
-  /* SIDEBAR */
+/* SIDEBAR */
 
 function openSidebar(){
 
 let sidebar =
 document.getElementById("sidebar");
 
-if(sidebar.style.left == "0px"){
+if(sidebar.style.left === "0px"){
 
 sidebar.style.left = "-270px";
 
@@ -576,6 +567,7 @@ sidebar.style.left = "-270px";
 sidebar.style.left = "0px";
 
 }
+
 }
 
 /* NEW CHAT */
@@ -584,7 +576,9 @@ function newChat(){
 
 document.getElementById("messages")
 .innerHTML = "";
+
 currentChat = [];
+
 }
 
 /* CLEAR CHAT */
@@ -594,8 +588,27 @@ function clearChat(){
 document.getElementById("messages")
 .innerHTML = "";
 
+currentChat = [];
+
 }
-  
+
+/* SAVE CHAT */
+
+function saveChat(){
+
+if(currentChat.length > 0){
+
+allChats.push([...currentChat]);
+
+localStorage.setItem(
+"zenkaiChats",
+JSON.stringify(allChats)
+);
+
+}
+
+}
+
 /* THEME */
 
 function toggleTheme(){
@@ -613,82 +626,13 @@ document.body.classList.add("light");
 
 document.body.style.background =
 "linear-gradient(135deg,#000,#240046,#ff00ff)";
-}
-}
-  function saveChat(){
-
-if(currentChat.length > 0){
-
-allChats.push([...currentChat]);
-
-localStorage.setItem(
-"zenkaiChats",
-JSON.stringify(allChats)
-);
-
-loadSidebarChats();
-console.log("JS WORKING");
-}
-    
-}
-  function loadSidebarChats(){
-
-let sidebar =
-document.getElementById("sidebar");
-
-let old =
-document.querySelectorAll(".old-chat");
-
-old.forEach(chat => chat.remove());
-
-allChats.forEach((chat,index)=>{
-
-let btn =
-document.createElement("button");
-
-btn.className = "old-chat";
-
-btn.innerText =
-"💬 Chat " + (index + 1);
-
-btn.onclick = function(){
-
-loadChat(index);
-
-};
-
-sidebar.appendChild(btn);
-
-});
-
-  }
-  function loadChat(index){
-
-let messages =
-document.getElementById("messages");
-
-messages.innerHTML = "";
-
-allChats[index].forEach(msg=>{
-
-let div =
-document.createElement("div");
-
-div.className =
-msg.sender === "user"
-? "message user"
-: "message";
-
-div.innerText = msg.text;
-
-messages.appendChild(div);
-
-});
 
 }
-loadSidebarChats();
+
+}
 
 </script>
+
 
 </body>
 </html>
