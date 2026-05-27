@@ -587,6 +587,17 @@ document.getElementById("messages")
 
 currentChat = [];
 
+/* create empty slot */
+
+allChats.push([]);
+
+localStorage.setItem(
+"zenkaiChats",
+JSON.stringify(allChats)
+);
+
+loadSidebarChats();
+
 }
 
 /* CLEAR CHAT */
@@ -601,21 +612,24 @@ currentChat = [];
 }
 
 /* SAVE CHAT */
-
 function saveChat(){
 
-if(currentChat.length > 0){
+if(currentChat.length === 0) return;
 
-allChats.push([...currentChat]);
+/* overwrite latest chat */
+
+allChats[allChats.length - 1] =
+[...currentChat];
 
 localStorage.setItem(
 "zenkaiChats",
 JSON.stringify(allChats)
 );
 
-}
+loadSidebarChats();
 
 }
+
 
 /* THEME */
 
@@ -638,7 +652,25 @@ document.body.style.background =
 }
 
 }
+window.onload = function(){
 
+allChats =
+JSON.parse(
+localStorage.getItem("zenkaiChats")
+) || [];
+
+if(allChats.length === 0){
+
+allChats.push([]);
+
+}
+
+currentChat =
+allChats[allChats.length - 1];
+
+loadSidebarChats();
+
+  }
 </script>
 
 
