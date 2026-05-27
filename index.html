@@ -673,6 +673,54 @@ loadSidebarChats();
   }
 </script>
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyDIN5KnisDqOwWgOiaPSEmvXzeP5q5Dbqk",
+    authDomain: "zenkaiai.firebaseapp.com",
+    projectId: "zenkaiai",
+    storageBucket: "zenkaiai.firebasestorage.app",
+    messagingSenderId: "298539306658",
+    appId: "1:298539306658:web:c594741c7da5ff620b51fb",
+    measurementId: "G-JW9XPVZ7EP"
+  };
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  const provider = new GoogleAuthProvider();
+
+  window.googleLogin = function () {
+
+    signInWithPopup(auth, provider)
+
+      .then((result) => {
+
+        alert("Welcome " + result.user.displayName);
+
+      })
+
+      .catch((error) => {
+
+        alert(error.message);
+
+      });
+
+  };
+
+  window.logout = function () {
+
+    signOut(auth).then(() => {
+
+      alert("Logged out");
+
+    });
+
+  };
+
+</script>
 </body>
 </html>
