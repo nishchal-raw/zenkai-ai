@@ -177,6 +177,7 @@ transform:translateY(0px);
     border:1px solid rgba(255,255,255,0.1);
     border-radius:30px;
     overflow:hidden;
+      position:relative;
     box-shadow:0 0 40px #ff00ff;
     display:flex;
     flex-direction:column;
@@ -219,7 +220,8 @@ z-index:1;
 }
 
 input{
-    flex:1;
+   height:100%; 
+  flex:1;
     padding:12px;
     border:none;
     border-radius:15px;
@@ -270,9 +272,9 @@ button{
 position:fixed;
 
 top:20px;
-left:-320px;
+left:-270px;
   
-width:250px;
+width:220px;
 height:100%;
   height:90vh;
 border-radius:25px;
@@ -354,7 +356,7 @@ font-weight:bold;
 border:none;
 border-radius:15px;
 cursor:pointer;
-z-index:999999;
+z-index:99999999;
 
 box-shadow:0 0 25px #ff00ff;
 
@@ -509,12 +511,18 @@ return "⚡ Zenkai AI is learning new responses...";
 
 function startVoice(){
 
-let recognition = new webkitSpeechRecognition();
+let recognition =
+new(window.SpeechRecognition ||
+window.webkitSpeechRecognition)();
 
 recognition.lang = "en-US";
 
 recognition.start();
+recognition.onerror = function(){
 
+alert("Mic permission denied");
+
+};
 recognition.onresult = function(event){
 
 let transcript =
@@ -581,10 +589,23 @@ document.getElementById("messages")
 
 function toggleTheme(){
 
+if(document.body.classList.contains("light")){
+
+document.body.classList.remove("light");
+
+document.body.style.background =
+"linear-gradient(-45deg,#050010,#140021,#240046,#000000)";
+
+}else{
+
+document.body.classList.add("light");
+
 document.body.style.background =
 "linear-gradient(135deg,#000,#240046,#ff00ff)";
 
-  }
+}
+
+}
   function saveChat(){
 
 if(currentChat.length > 0){
@@ -597,7 +618,7 @@ JSON.stringify(allChats)
 );
 
 loadSidebarChats();
-
+console.log("JS WORKING");
 }
 
   }
