@@ -481,8 +481,8 @@ return "🤖 My name is Zenkai AI.";
 }
 
   else if(userText.includes("how was harshita ")){
-return " she was an girl live in ajmer rajasthan india 
-  there brother was famous and he give them nick name which is dingi bai !";
+return ' she was an girl live in ajmer rajasthan india 
+  there brother was famous and he give them nick name which is dingi bai !';
   }
 else if(userText.includes("who made you")){
 return "⚡ I was created by Nischal Sharma.";
@@ -512,15 +512,21 @@ recognition.start();
 
 recognition.onresult = function(event){
 
+let transcript =
+event.results[0][0].transcript;
 
-}
+document.getElementById("input").value =
+transcript;
+
+sendMessage();
+
 }
 /* ENTER KEY SEND */
 
 document.getElementById("input")
 .addEventListener("keydown", function(event){
 
-if(event.keyCode == 13){
+if(event.key === "Enter")
 
 event.preventDefault();
 
