@@ -336,12 +336,14 @@ cursor:pointer;
 
 .menu-btn{
 
-position:fixed;
-top:15px;
-left:15px;
+position:absolute;
 
-width:55px;
-height:55px;
+top:20px;
+
+left:20px;
+
+width:50px;
+height:50px;
 
 display:flex;
 justify-content:center;
@@ -350,26 +352,25 @@ align-items:center;
 background:#ff00ff;
 color:white;
 
-font-size:30px;
+font-size:28px;
 font-weight:bold;
 
 border:none;
 border-radius:15px;
+
 cursor:pointer;
-z-index:99999999;
+
+z-index:999999;
 
 box-shadow:0 0 25px #ff00ff;
 
 }
-
 </style>
 
 </head>
 
 <body>
-  <button class="menu-btn" onclick="openSidebar()">
-☰
-  </button>
+  
 <div class="sidebar" id="sidebar">
 
 <h2>Zenkai AI</h2>
@@ -383,7 +384,9 @@ box-shadow:0 0 25px #ff00ff;
 </div>
 
 <div class="chat-container">
-
+<button class="menu-btn" onclick="openSidebar()">
+☰
+</button>
 <div class="header">
     <div class="ai-orb"></div>
 👾 Zenkai AI
