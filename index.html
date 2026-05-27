@@ -269,11 +269,13 @@ button{
 
 position:fixed;
 
-top:0;
-left:-260px;
-
+top:20px;
+left:-320px;
+  
 width:250px;
 height:100%;
+  height:90vh;
+border-radius:25px;
 display:flex;
 flex-direction:column;
   overflow-y:auto;
@@ -290,7 +292,7 @@ backdrop-filter:blur(20px);
 
 box-shadow:
 0 0 30px #ff00ff;
-
+border:1px solid rgba(255,255,255,0.1);
 }
 
 .sidebar h2{
@@ -545,7 +547,7 @@ function openSidebar(){
 let sidebar =
 document.getElementById("sidebar");
 
-if(sidebar.style.left == "0px"){
+if(sidebar.style.left == "20px"){
 
 sidebar.style.left = "-260px";
 
