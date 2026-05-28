@@ -5,8 +5,8 @@
 <title>Zenkai AI</title>
 
 <style>
-body{
   
+  body{
     margin:0;
     height:100vh;
     display:flex;
@@ -472,7 +472,32 @@ height:700px;
 <div class="sidebar" id="sidebar">
 
 <h2>Zenkai AI</h2>
+<div id="profileBox" style="
+display:none;
+text-align:center;
+margin-top:15px;
+margin-bottom:20px;
+">
 
+<img id="userPic"
+style="
+width:70px;
+height:70px;
+border-radius:50%;
+border:3px solid #ff00ff;
+box-shadow:0 0 15px #ff00ff;
+">
+
+<div id="userName"
+style="
+color:white;
+font-weight:bold;
+margin-top:10px;
+font-size:18px;
+">
+</div>
+
+</div>
 <button onclick="newChat()">➕ New Chat</button>
 
 <button onclick="clearChat()">🗑 Clear Chat</button>
@@ -486,10 +511,19 @@ height:700px;
 ☰
 </button>
 <div class="header">
-  <button onclick="googleLogin()" class="google-btn">
-🔐 Continue with Google
-</button>
-<button id="loginBtn" onclick="signInWithGoogle()">Continue with Google</button>
+<button id="loginBtn" onclick="signInWithGoogle()" style="
+background:#ff00ff;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:15px;
+font-weight:bold;
+box-shadow:0 0 20px #ff00ff;
+cursor:pointer;
+">
+🙌 Continue with Google
+</button>  
+
 <button onclick="logout()" class="logout-btn">
 🚪 Logout
 </button>
@@ -517,10 +551,34 @@ Ask me anything...
 
 </div>
 <script>
+let savedChats =
+JSON.parse(localStorage.getItem("zenkaiChats")) || [];
 
 let allChats = JSON.parse(localStorage.getItem("zenkaiChats")) || [];
-let currentChat = [];
+let currentChat = savedChats;
+window.onload = function(){
 
+let messages =
+document.getElementById("messages");
+
+savedChats.forEach(chat => {
+
+let div =
+document.createElement("div");
+
+if(chat.sender === "user"){
+div.className = "message user";
+}else{
+div.className = "message";
+}
+
+div.innerText = chat.text;
+
+messages.appendChild(div);
+
+});
+
+}
 /* SEND MESSAGE */
 
 function sendMessage(){
@@ -736,7 +794,7 @@ document.getElementById("messages")
 .innerHTML = "";
 
 currentChat = [];
-
+localStorage.removeItem("zenkaiChats");
 }
 
 /* SAVE CHAT */
@@ -854,20 +912,66 @@ loadSidebarChats();
 
   };
 function signInWithGoogle(){
- // login code
+
+if(window.innerWidth < 768){
+
+signInWithRedirect(auth, provider);
+
+}else{
+
+signInWithPopup(auth, provider)
+
+.then((result)=>{
+
+document.getElementById("loginBtn").style.display = "none";
+
+document.getElementById("profileBox").style.display = "flex";
+
+document.getElementById("userPic").src =
+result.user.photoURL;
+
+document.getElementById("userName").innerText =
+result.user.displayName;
+
+});
+
 }
 
+}
+.catch((error)=>{
+
+alert(error.message);
+
+});
+
+}
 
 onAuthStateChanged(auth, (user) => {
 
 if(user){
+
 document.getElementById("loginBtn").style.display = "none";
+
+document.getElementById("profileBox").style.display = "block";
+
+document.getElementById("userPic").src =
+user.photoURL;
+
+document.getElementById("userName").innerText =
+user.displayName;
+
 }
+
 else{
+
 document.getElementById("loginBtn").style.display = "block";
+
+document.getElementById("profileBox").style.display = "none";
+
 }
 
 });
+
 </script>
 </body>
 </html>
