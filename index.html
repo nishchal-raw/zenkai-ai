@@ -887,7 +887,10 @@ if(currentChat.length === 0) return;
 if(allChats.length === 0){
 allChats.push([...currentChat]);
 }
-
+localStorage.setItem(
+"zenkaiChats",
+JSON.stringify(allChats)
+);
 /* latest chat update karo */
 allChats[allChats.length - 1] = [...currentChat];
 
@@ -985,7 +988,9 @@ loadSidebarChats();
   window.logout = function () {
 
     signOut(auth).then(() => {
+document.getElementById("profileBox").style.display = "none";
 
+document.getElementById("loginBtn").style.display = "block";
       alert("Logged out");
 
     });
@@ -993,19 +998,13 @@ loadSidebarChats();
   };
 function signInWithGoogle(){
 
-if(window.innerWidth < 768){
-
-signInWithRedirect(auth, provider);
-
-}else{
-
 signInWithPopup(auth, provider)
 
 .then((result)=>{
 
 document.getElementById("loginBtn").style.display = "none";
 
-document.getElementById("profileBox").style.display = "flex";
+document.getElementById("profileBox").style.display = "block";
 
 document.getElementById("userPic").src =
 result.user.photoURL;
@@ -1013,11 +1012,10 @@ result.user.photoURL;
 document.getElementById("userName").innerText =
 result.user.displayName;
 
-});
+alert("Welcome " + result.user.displayName);
 
-}
+})
 
-}
 .catch((error)=>{
 
 alert(error.message);
