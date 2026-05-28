@@ -590,6 +590,7 @@ messages.appendChild(div);
 });
 
 }
+const GEMINI_API_KEY = "AIzaSyA80foWqtTK8-w5QaUjomz2qFDUAd-bFWA";  
 /* SEND MESSAGE */
 
 function sendMessage(){
@@ -624,8 +625,43 @@ messages.appendChild(aiMessage);
 
 setTimeout(()=>{
 
-aiMessage.innerText = getAIResponse(text);
+fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${AIzaSyA80foWqtTK8-w5QaUjomz2qFDUAd-bFWA}`, {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+contents: [{
+parts: [{
+text: text
+}]
+}]
+})
+})
+.then(res => res.json())
+.then(data => {
 
+let reply =
+data.candidates[0].content.parts[0].text;
+
+aiMessage.innerText = reply;
+
+currentChat.push({
+sender:"ai",
+text:reply
+});
+
+saveChat();
+
+})
+.catch(error => {
+
+aiMessage.innerText =
+"⚠️ Error loading AI response.";
+
+console.log(error);
+
+});
 currentChat.push({
 sender:"ai",
 text:aiMessage.innerText
@@ -641,132 +677,6 @@ messages.scrollTop = messages.scrollHeight;
 
 }
 
-/* AI RESPONSE */
-
-function getAIResponse(userText){
-
-userText = userText.toLowerCase();
-
-if(userText.includes("hello")){
-return "👋 Hello! I am Zenkai AI.";
-}
-
-else if(userText.includes("your name")){
-return "🤖 My name is Zenkai AI.";
-}
-  
-else if(userText.includes("nischal")){
-return "😎 Nischal Sharma is creator of Zenkai AI.";
-}
-
-else if(userText.includes("harshita")){
-return "😜 Harshita Sharma is sister of Nischal Sharma.";
-}
-  else if(userText.includes("nischal")){
-return "😎 Nischal Sharma is a great person from Ajmer, Rajasthan, India. He started his ECE BTech studies in 2026.";
-}
-
-else if(userText.includes("harshita")){
-return "🤪 Harshita Sharma is the sister of Nischal Sharma. She is from Ajmer, Rajasthan, India. Her nicknames are Dingi Bai, Padodi, and Harshu.";
-  }
-  
-else if(userText.includes("who made you")){
-return "⚡ I was created by Nischal Sharma.";
-}
-
-else if(userText.includes("how are you")){
-return "😎 I am futuristic and fully operational!";
-}
-
-else if(userText.includes("preeti")){
-return "👩 Preeti Sharma is mother of Nischal and Harshita Sharma.";
-}
-
-else if(userText.includes("ashish")){
-return "👨 Ashish Sharma is father of Nischal Sharma and Harshita Sharma.";
-}
-
-else if(userText.includes("nischal birth")){
-return "🎂 Nischal Sharma was born on 29 February 2008.";
-}
-
-else if(userText.includes("harshita birth")){
-return "🎂 Harshita Sharma was born on 20 May 2014.";
-}
-
-else if(userText.includes("preeti birth")){
-return "🎂 Preeti Sharma was born on 15 July 1982.";
-}
-
-else if(userText.includes("ashish birth")){
-return "🎂 Ashish Sharma was born on 5 September 1981.";
-}
-
-else if(userText.includes("ece")){
-return "📚 Nischal Sharma is preparing for ECE BTech.";
-}
-
-else if(userText.includes("your creator")){
-return "⚡ My creator is Nischal Sharma.";
-}
-
-else if(userText.includes("india")){
-return "🇮🇳 India is a powerful and developing country.";
-}
-
-else if(userText.includes("ai")){
-return "🤖 Artificial Intelligence is the future technology.";
-}
-
-else if(userText.includes("motivate me")){
-return "🔥 Never give up bro. Success takes time.";
-}
-
-else if(userText.includes("study")){
-return "📖 Consistency is the key to success in studies.";
-}
-
-else if(userText.includes("who are you")){
-return "🤖 I am Zenkai AI, your futuristic assistant.";
-}
-
-else if(userText.includes("good morning")){
-return "🌞 Good Morning Commander!";
-}
-
-else if(userText.includes("good night")){
-return "🌙 Good Night Commander!";
-}
-
-else if(userText.includes("time")){
-return "⏰ Time is very valuable. Use it wisely.";
-}
-
-else if(userText.includes("money")){
-return "💸 Money is important, but knowledge is more powerful.";
-}
-
-else if(userText.includes("dollar")){
-return "💵 1 US Dollar is around 83-85 Indian Rupees.";
-}
-
-else if(userText.includes("bitcoin")){
-return "₿ Bitcoin is the world's most famous cryptocurrency.";
-}
-
-else if(userText.includes("rupee")){
-return "💰 Indian Rupee is the currency of India.";
-}
-  
-else if(userText.includes("bye")){
-return "👋 Goodbye Commander!";
-}
-
-else{
-return "⚡ Zenkai AI is learning new responses...";
-}
-
-}
 
 /* ENTER KEY */
 
