@@ -640,7 +640,7 @@ text: text
 })
 .then(res => res.json())
 .then(data => {
-
+console.log(data);    
 let reply =
 data.candidates[0].content.parts[0].text;
 
