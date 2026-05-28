@@ -511,18 +511,31 @@ font-size:18px;
 ☰
 </button>
 <div class="header">
+
+<div style="
+display:flex;
+align-items:center;
+gap:10px;
+">
+
+<button class="menu-btn" onclick="openSidebar()">
+☰
+</button>
+
 <button id="loginBtn" onclick="signInWithGoogle()" style="
 background:#ff00ff;
 color:white;
 border:none;
-padding:12px 20px;
-border-radius:15px;
+padding:10px 15px;
+border-radius:12px;
 font-weight:bold;
-box-shadow:0 0 20px #ff00ff;
+box-shadow:0 0 15px #ff00ff;
 cursor:pointer;
 ">
-🙌 Continue with Google
-</button>  
+🙌 Google Login
+</button>
+
+</div>
 
 <button onclick="logout()" class="logout-btn">
 🚪 Logout
